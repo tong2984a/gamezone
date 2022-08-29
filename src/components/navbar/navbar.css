@@ -34,6 +34,7 @@
 }
 
 .gpt3__navbar-links_container p,
+.gpt3__navbar-links_container .navlink,
 .gpt3__navbar-sign p,
 .gpt3__navbar-menu_container p {
     color: #fff;
