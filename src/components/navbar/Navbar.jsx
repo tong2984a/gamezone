@@ -132,6 +132,8 @@ const Navbar = () => {
             <p><a href="#possibility">Open AI</a></p>
             <p><a href="#features">Case Studies</a></p>
             <p><a href="#blog">Library</a></p>
+            <NavLink to="/cardui" className="navlink">CardUI</NavLink>
+            <NavLink to="/games" className="navlink">Games</NavLink>
           </div>
           <div className="gpt3__navbar-menu_container-links-sign">
             <button type="button" onClick={() => handleRegister()}>Connect Wallet</button>

@@ -1,7 +1,13 @@
-import React from 'react';
+import { ethers } from 'ethers';
+import { React, useState } from 'react';
 import styled from 'styled-components';
 import { BsChevronRight } from 'react-icons/bs';
+import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
 import { Colors } from '../Theme';
+import { db } from '../tasks/firebase';
+import OwnershipItem from './OwnershipItem';
+import { deployed } from '../../config';
+import Market from '../../artifacts/contracts/Market.sol/NFTMarket.json';
 
 const EditionSelectorEl = styled.article`
   display: flex;
@@ -40,21 +46,72 @@ const SelectEdition = styled.a`
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  text-decoration: underline;
+  cursor: pointer;
+`;
+const Content = styled.div`
+  padding: 1rem;
 `;
 
-export default function EmptySelector() {
+export default function EmptySelector({ setReadyToPlay, task, player }) {
+  const [hasPlayer, setHasPlayer] = useState(task.players.includes(player));
+  const { nftmarketaddress, nftaddress } = deployed;
+
+  const placeBid = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const market = new ethers.Contract(nftmarketaddress, Market.abi, signer);
+    const price = ethers.utils.parseUnits('0.01', 'ether');
+    try {
+      const transaction = await market.createMarketSale(nftaddress, 2, { value: price });
+      await transaction.wait();
+    } catch (error) {
+      if (error.code === -32603) {
+        console.error({ title: 'Error - Please check your wallet and try again.', message: 'It is very possible that the RPC endpoint you are using to connect to the network with MetaMask is congested or experiencing technical problems' });
+      } else {
+        console.error({ title: 'Error - Please check your wallet and try again.', message: error.message });
+      }
+    }
+  };
+
+  /* function to update firestore */
+  const handleChange = async () => {
+    placeBid();
+    const taskDocRef = doc(db, 'tasks', task.id);
+    try {
+      await updateDoc(taskDocRef, {
+        players: arrayUnion(player),
+      });
+      setHasPlayer(true);
+      task.players.push(player);
+      setReadyToPlay(
+        ['2', '3', '4'].every((pos) => task.players.includes(pos)),
+      );
+    } catch (err) {
+      alert(err);
+    }
+    return false;
+  };
+
   return (
-    <EditionSelectorEl>
-      <BtnContainer>
-        <TopBtn />
-        <BottomBtn />
-      </BtnContainer>
-      <EdInfo>
-        <EditionLabel>Empty</EditionLabel>
-      </EdInfo>
-      <SelectEdition href="#">
-        Join Game<BsChevronRight />
-      </SelectEdition>
-    </EditionSelectorEl>
+    hasPlayer
+      ? (
+        <Content>
+          <OwnershipItem />
+        </Content>
+      ) : (
+        <EditionSelectorEl>
+          <BtnContainer>
+            <TopBtn />
+            <BottomBtn />
+          </BtnContainer>
+          <EdInfo>
+            <EditionLabel>Empty</EditionLabel>
+          </EdInfo>
+          <SelectEdition onClick={handleChange}>
+            Join Game<BsChevronRight />
+          </SelectEdition>
+        </EditionSelectorEl>
+      )
   );
 }

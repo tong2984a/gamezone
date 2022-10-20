@@ -1,11 +1,12 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { NavLink } from 'react-router-dom';
-import { NFTs } from '../Info';
+// import { NavLink } from 'react-router-dom';
+// import { NFTs } from '../Info';
 import { Colors, Devices } from '../components/Theme';
-import Grid from '../components/styled/Grid.styled';
+// import Grid from '../components/styled/Grid.styled';
 import Page from '../components/styled/Page.styled';
-import NFTCard from '../components/styled/NFTCard.styled';
+// import NFTCard from '../components/styled/NFTCard.styled';
+import Home from '../components/tasks/TaskManager';
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -132,13 +133,7 @@ export default function TopCollectibles() {
                 <Sort>Payout Volume</Sort>
                 <Date>Today</Date>
               </TopSection>
-              <Grid>
-                {NFTs.map((nft) => (
-                  <NavLink key={nft.Id} to="/asset" className="navlink">
-                    <NFTCard item={nft} />
-                  </NavLink>
-                ))}
-              </Grid>
+              <Home />
               <ShowMore>show more</ShowMore>
             </TopCollectiblesEl>
           </HomeEl>

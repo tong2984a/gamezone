@@ -14,6 +14,10 @@ const TabEl = styled.article`
 `;
 
 export default function Tab({ children }) {
-  if (children) <>{children}</>;
-  else <TabEl>Nothing to show 🤷🏻‍♂️</TabEl>;
+  return children
+    ? (
+      <>{children}</>
+    ) : (
+      <TabEl>Nothing to show 🤷🏻‍♂️</TabEl>
+    );
 }

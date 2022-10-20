@@ -1,9 +1,10 @@
-import React from 'react';
+import { React, useState } from 'react';
 import styled from 'styled-components';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import { AiFillCaretLeft } from 'react-icons/ai';
 import { IoMdShareAlt } from 'react-icons/io';
 import { BsHeart, BsFillEyeFill, BsThreeDots } from 'react-icons/bs';
+import { useLocation } from 'react-router-dom';
 import { Colors, Devices } from '../components/Theme';
 import Tab from '../components/styled/Tab.styled';
 import Tabs from '../components/styled/Tabs.styled';
@@ -150,6 +151,12 @@ const AllTabs = [
 ];
 
 export default function Asset() {
+  const location = useLocation();
+  const { task } = location.state;
+  const [readyToPlay, setReadyToPlay] = useState(
+    ['2', '3', '4'].every((pos) => task.players.includes(pos)),
+  );
+
   return (
     <AssetEl>
       <SectionContainer>
@@ -213,12 +220,24 @@ export default function Asset() {
             <Tag>Flat Rate</Tag>
           </TagContainer>
           <Tabs mt="1rem" data={AllTabs} />
-          <EmptySelector />
-          <EmptySelector />
-          <EmptySelector />
+          {
+            readyToPlay
+              || (
+                <>
+                  <EmptySelector setReadyToPlay={setReadyToPlay} task={task} player="2" />
+                  <EmptySelector setReadyToPlay={setReadyToPlay} task={task} player="3" />
+                  <EmptySelector setReadyToPlay={setReadyToPlay} task={task} player="4" />
+                </>
+              )
+          }
         </RightSection>
       </SectionContainer>
-      <BidSticky />
+      {
+        readyToPlay
+          && (
+            <BidSticky />
+          )
+      }
     </AssetEl>
   );
 }
