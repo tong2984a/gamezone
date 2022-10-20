@@ -20,7 +20,7 @@ function AddTask({ onClose, open }) {
       });
       onClose();
     } catch (err) {
-      alert(err);
+      console.error(err);
     }
   };
 

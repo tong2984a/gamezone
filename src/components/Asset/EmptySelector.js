@@ -88,7 +88,7 @@ export default function EmptySelector({ setReadyToPlay, task, player }) {
         ['2', '3', '4'].every((pos) => task.players.includes(pos)),
       );
     } catch (err) {
-      alert(err);
+      console.error(err);
     }
     return false;
   };
