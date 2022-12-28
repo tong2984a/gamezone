@@ -41,6 +41,7 @@ const Navbar = () => {
       });
       if (result) {
         const [accounts, chainId] = result;
+        console.log('error1', result, envChainId);
         if (accounts.length === 0) {
           throw new Error('Please check your wallet and try again', { message: 'MetaMask is locked or the user has not connected any accounts' });
         }
@@ -58,7 +59,6 @@ const Navbar = () => {
   async function handleAccountsRequest() {
     try {
       await ethAccountsRequest();
-      console.log(address);
     } catch (error) {
       updateInfo({ message: error.message });
     }

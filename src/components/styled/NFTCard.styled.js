@@ -107,39 +107,40 @@ const Bar2 = styled(Bar1)`
 
 export default function NFTCard({ item }) {
   const {
-    Badge,
-    ImageUrl,
-    Edition,
-    Stock,
-    Title,
-    Price,
-    Avatar,
-    Author,
-    Likes,
+    badge,
+    imageUrl,
+    edition,
+    stock,
+    title,
+    price,
+    avatar,
+    author,
+    likes,
   } = item;
+
   return (
     <NFTCardEl>
       <Card>
-        <BadgeEl>{Badge}</BadgeEl>
+        <BadgeEl>{badge}</BadgeEl>
         <ItemImage>
-          <img src={ImageUrl} width="100%" height="100%" />
+          <img src={imageUrl} width="100%" height="100%" />
         </ItemImage>
         <InfoSection>
           <TSection>
             <EditionEl>
-              {Edition} {Edition > 1 ? 'Rounds' : 'Round'} Minted
+              {edition} {edition > 1 ? 'Rounds' : 'Round'} Minted
             </EditionEl>
-            <StockEl>{Stock} for sale</StockEl>
+            <StockEl>{stock} for sale</StockEl>
           </TSection>
-          <ItemTitle>{Title}</ItemTitle>
-          <PriceSection>{Price}</PriceSection>
+          <ItemTitle>{title === '' ? 'New Game' : title}</ItemTitle>
+          <PriceSection>{price === '' ? '0' : price} ETH</PriceSection>
           <BottomSection>
             <AvatarEl>
-              <img src={Avatar} width="50" height="50" />
+              <img src={avatar} width="50" height="50" />
             </AvatarEl>
-            <AuthorEl>{Author}</AuthorEl>
+            <AuthorEl>{author}</AuthorEl>
             <LikesEl>
-              <BsHeart /> {Likes}
+              <BsHeart /> {likes}
             </LikesEl>
           </BottomSection>
         </InfoSection>
