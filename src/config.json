@@ -24,6 +24,16 @@
                 "id": "0x539"
             }
         },
+        "goerli": {
+            "contract_owner": {
+                "name": "DeployMK",
+                "address": "0x9053211332Fb24802ae06401fae2eAaF38295050"
+            },
+            "chain": {
+                "name": "goerli",
+                "id": "0x5"
+            }
+        },
         "ropsten": {
             "contract_owner": {
                 "name": "",
@@ -66,13 +76,13 @@
         }
     },
     "deployed": {
-        "nftmarketaddress": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-        "nftaddress": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
-        "auctionAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+        "nftmarketaddress": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+        "nftaddress": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+        "auctionAddress": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
         "envChain": {
-            "name": "localhost",
-            "id": "0x539"
+            "name": "Ethereum Mainnet",
+            "id": "0x1"
         },
-        "contract_owner": ""
+        "contract_owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
     }
 }
