@@ -128,6 +128,7 @@ const Navbar = () => {
         <div className="gpt3__navbar-menu_container scale-up-center">
           <div className="gpt3__navbar-menu_container-links">
             <NavLink to="/games" className="navlink">Games</NavLink>
+            <p>&nbsp;</p>
           </div>
           <div className="gpt3__navbar-menu_container-links-sign">
             <button type="button" onClick={() => handleRegister()}>Connect Wallet</button>
