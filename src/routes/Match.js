@@ -1,16 +1,13 @@
 import { React, useState } from 'react';
 import styled from 'styled-components';
 import { HiOutlineExternalLink } from 'react-icons/hi';
-import { AiFillCaretLeft } from 'react-icons/ai';
 import { IoMdShareAlt } from 'react-icons/io';
-import { BsHeart, BsFillEyeFill, BsThreeDots } from 'react-icons/bs';
+import { BsHeart, BsFillEyeFill } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 import { Colors, Devices } from '../components/Theme';
-import Tab from '../components/styled/Tab.styled';
 import Tabs from '../components/styled/Tabs.styled';
 import Seatings from '../components/Asset/Seatings';
 import Ticket from '../components/tasks/Ticket';
-import OwnershipItem from '../components/Asset/OwnershipItem';
 
 const AssetEl = styled.article`
   background-color: ${Colors.White};
@@ -58,13 +55,6 @@ const RightSection = styled.div`
   gap: 0.85rem;
   flex: 0.95;
 `;
-const BackBtn = styled.span`
-  color: ${Colors.Primary};
-  display: flex;
-  width: max-content;
-  cursor: pointer;
-  align-items: center;
-`;
 const TopBtns = styled.div`
   display: flex;
   gap: 1rem;
@@ -83,54 +73,6 @@ const LikesBtn = styled.div`
 
 const ViewsEl = styled(LikesBtn)``;
 const ShareBtn = styled(LikesBtn)``;
-const MoreBtn = styled(LikesBtn)`
-  margin-left: auto;
-`;
-
-const AuthorContainer = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  span {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-`;
-const AvatarEl = styled.div`
-  border-radius: 50%;
-  overflow: hidden;
-  width: 50px;
-  height: 50px;
-`;
-const CreatorLabel = styled.label`
-  color: ${Colors.Gray};
-  font-size: 0.9rem;
-`;
-const UsernameEl = styled.span``;
-const EditionEl = styled.span`
-  font-weight: 500;
-`;
-const Title = styled.h1`
-  font-size: 1.7rem;
-  display: inline-block;
-  margin-right: 1rem;
-`;
-const MarketPlace = styled.span`
-  border: 1px solid ${Colors.Gray};
-  border-radius: 50px;
-  padding: 0.2rem 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: ${Colors.Gray};
-`;
-const AcOfferLabel = styled.span`
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: ${Colors.Gray};
-`;
-const Des = styled.p`
-  white-space: pre-wrap;
-`;
 const TagContainer = styled.div`
   display: flex;
   gap: 0.5rem;
@@ -145,12 +87,9 @@ const Tag = styled.span`
 
 export default function Match() {
   const [openAddTicketModal, setOpenAddTicketModal] = useState(false);
-  const { title, stock } = useParams();
+  const { title } = useParams();
   const AllTabs = [
-    { Id: 1, Title: 'Players', Content: <Seatings title={title} /> },
-    { Id: 2, Title: 'Scoreboard', Content: <OwnershipItem /> },
-    { Id: 3, Title: 'Similar Games', Content: <Tab /> },
-    { Id: 4, Title: 'Medals & Stats', Content: <Tab /> },
+    { Id: 1, Title: '參加比賽', Content: <Seatings title={title} /> },
   ];
 
   return (
@@ -169,10 +108,6 @@ export default function Match() {
           </ChainLink>
         </LeftSection>
         <RightSection>
-          <BackBtn>
-            <AiFillCaretLeft />
-            Back
-          </BackBtn>
           <TopBtns>
             <LikesBtn>
               <BsHeart />
@@ -186,28 +121,7 @@ export default function Match() {
               <IoMdShareAlt />
               Share
             </ShareBtn>
-            <MoreBtn>
-              <BsThreeDots />
-            </MoreBtn>
           </TopBtns>
-          <AuthorContainer>
-            <AvatarEl>
-              <img src="/images/nft/user-pic1.svg" width="50" height="50" />
-            </AvatarEl>
-            <span>
-              <CreatorLabel>Creator</CreatorLabel>
-              <UsernameEl>新直播主</UsernameEl>
-            </span>
-          </AuthorContainer>
-          <EditionEl>371 Rounds Minted</EditionEl>
-          <span>
-            <Title>{title}</Title>
-            <MarketPlace>30 Rounds</MarketPlace>
-          </span>
-          <AcOfferLabel>Accepting Players</AcOfferLabel>
-          <Des>
-            Race through obstacle courses against up to {Number(stock) * 6} players online. Run, jump and dash to the finish line until the best player takes the crown!
-          </Des>
           <TagContainer>
             <Tag>Crypto</Tag>
             <Tag>Speed Games</Tag>

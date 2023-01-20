@@ -120,7 +120,7 @@ export default function Seatings({ title }) {
   return (
     <div className="theatre">
       <div className="screen-side">
-        <h3 className="select-text">Please select your seat for {price} ETH</h3>
+        <h3 className="select-text">入場費 {price} ETH</h3>
         <h1>{message}</h1>
         <h1>{cause}</h1>
       </div>
@@ -130,10 +130,13 @@ export default function Seatings({ title }) {
             <li key={row} className={`row row--${row + 1}`}>
               <ol className="seats" type="A">
                 {Array.from(['A', 'B', 'C', 'D', 'E', 'F'], (_element, index) => (
-                  <li key={index} className="seat">
-                    <input type="checkbox" disabled={players.includes(`${row + 1}${_element}`)} id={`${row + 1}${_element}`} onClick={() => handleChange(`${row + 1}${_element}`)} />
-                    <label htmlFor={`${row + 1}${_element}`}>{`${row + 1}${_element}`}</label>
-                  </li>
+                  (row * 6) + index < stock
+                  && (
+                    <li key={index} className="seat">
+                      <input type="checkbox" disabled={players.includes(`${row + 1}${_element}`)} id={`${row + 1}${_element}`} onClick={() => handleChange(`${row + 1}${_element}`)} />
+                      <label htmlFor={`${row + 1}${_element}`}>{`${(row * 6) + index + 1}`}</label>
+                    </li>
+                  )
                 ))}
               </ol>
             </li>
