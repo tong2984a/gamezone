@@ -53,7 +53,7 @@ function TaskManager() {
         </div>
         <Grid>
           {tasks.map((task) => (
-            <NavLink key={task.id} to={`/match/${task.title || task.id}`} className="navlink">
+            <NavLink key={task.id} to={`/match/${task.title || task.id}/${task.stock}`} className="navlink">
               <NFTCard item={task} />
             </NavLink>
           ))}

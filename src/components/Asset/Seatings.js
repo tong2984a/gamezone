@@ -6,16 +6,18 @@ import './Seatings.css';
 
 import { deployed } from '../../config';
 // import Market from '../../artifacts/contracts/Market.sol/NFTMarket.json';
-import NFT from '../../artifacts/contracts/NFT.sol/NFT.json';
+import Game from '../../artifacts/contracts/Game.sol/Game.json';
 
 const envChainName = deployed.envChain.name;
 const envChainId = deployed.envChain.id;
-const { nftaddress } = deployed;
+const { gameAddress } = deployed;
 
 export default function Seatings({ title }) {
   const [task, setTask] = useState();
   const [players, setPlayers] = useState([]);
   const [message, setMessage] = useState('');
+  const [price, setPrice] = useState('');
+  const [stock, setStock] = useState(1);
   const [cause, setCause] = useState('');
 
   /* function to get all tasks from firestore in realtime */
@@ -37,6 +39,8 @@ export default function Seatings({ title }) {
           likes: doc1.data().likes,
         });
         setPlayers(doc1.data().players ?? []);
+        setPrice(doc1.data().price);
+        setStock(doc1.data().stock);
       });
     });
   }, []);
@@ -47,11 +51,9 @@ export default function Seatings({ title }) {
     // const market = new ethers.Contract(nftmarketaddress, Market.abi, signer);
     // const price = ethers.utils.parseUnits('0.01', 'ether');
     try {
-      // const transaction = await market.createMarketSale(nftaddress, 2, { value: price });
-      // await transaction.wait();
-
-      const contract = new ethers.Contract(nftaddress, NFT.abi, signer);
-      const transaction = await contract.createToken('tokenURIHash', 'content', 0);
+      const valueInEther = ethers.utils.parseUnits('1', 'ether');
+      const contract = new ethers.Contract(gameAddress, Game.abi, signer);
+      const transaction = await contract.makeBet({ value: valueInEther });
       const tx = await transaction.wait();
       const event = tx.events[0];
       console.log({ event });
@@ -118,13 +120,13 @@ export default function Seatings({ title }) {
   return (
     <div className="theatre">
       <div className="screen-side">
-        <h3 className="select-text">Please select your seat</h3>
+        <h3 className="select-text">Please select your seat for {price} ETH</h3>
         <h1>{message}</h1>
         <h1>{cause}</h1>
       </div>
       <ol className="cabin">
         {
-          Array.from({ length: 10 }, (_rowElement, row) => (
+          Array.from({ length: stock }, (_rowElement, row) => (
             <li key={row} className={`row row--${row + 1}`}>
               <ol className="seats" type="A">
                 {Array.from(['A', 'B', 'C', 'D', 'E', 'F'], (_element, index) => (

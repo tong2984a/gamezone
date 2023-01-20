@@ -1,0 +1,86 @@
+{
+    "token": {
+        "symbol": "FIRE",
+        "name": "SlashFIRE",
+        "price": "0.00001",
+        "wallet_watchAsset": {
+            "image": "https://ipfs.infura.io/ipfs/QmSeVUE9oHCuiszAUgfP9XNXtdZhxa2J827HDAyZDxUupe"
+        },
+        "tokenURI.json": {
+            "hash": "QmU3nVALJWomQSwqdn5MirCAwZRw7BynJFChLHUAeTEQn6"
+        },
+        "contractURI.json": {
+            "hash": "QmZU1U69Sj8ahignYMfWcDcKE52xtJNSMQzMhagbiHg2mS"
+        }
+    },
+    "chains": {
+        "localhost": {
+            "contract_owner": {
+                "name": "hardhat1",
+                "address": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
+            },
+            "chain": {
+                "name": "localhost",
+                "id": "0x539"
+            }
+        },
+        "goerli": {
+            "contract_owner": {
+                "name": "DeployMK20220803",
+                "address": "0x9053211332Fb24802ae06401fae2eAaF38295050"
+            },
+            "chain": {
+                "name": "goerli",
+                "id": "0x5"
+            }
+        },
+        "ropsten": {
+            "contract_owner": {
+                "name": "",
+                "address": ""
+            },
+            "chain": {
+                "name": "ropsten",
+                "id": "0x3"
+            }
+        },
+        "rinkeby": {
+            "contract_owner": {
+                "name": "",
+                "address": ""
+            },
+            "chain": {
+                "name": "rinkeby",
+                "id": "0x4"
+            }
+        },
+        "matic": {
+            "contract_owner": {
+                "name": "",
+                "address": ""
+            },
+            "chain": {
+                "name": "matic",
+                "id": "0x89"
+            }
+        },
+        "mumbai": {
+            "contract_owner": {
+                "name": "SelfServiceNFT",
+                "address": "0x3B67b2e6806233C79b109577B361E9d35c0cd397"
+            },
+            "chain": {
+                "name": "mumbai",
+                "id": "0x13881"
+            }
+        }
+    },
+    "deployed": {
+        "gameAddress": "0xf81D061F2C679197B5D31E0D14A082BcA4Fb9561",
+        "envChain": {
+            "name": "mumbai",
+            "id": "0x13881"
+        },
+        "contract_owner": "0x3B67b2e6806233C79b109577B361E9d35c0cd397"
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "token": {
+        "symbol": "FIRE",
+        "name": "SlashFIRE",
+        "price": "0.00001",
+        "wallet_watchAsset": {
+            "image": "https://ipfs.infura.io/ipfs/QmSeVUE9oHCuiszAUgfP9XNXtdZhxa2J827HDAyZDxUupe"
+        },
+        "tokenURI.json": {
+            "hash": "QmTEHTMgEKvf8ypt1HJU24j8HDabcGMcf8s3wp7kUMTQqJ"
+        },
+        "contractURI.json": {
+            "hash": "QmTMnkaUCLywWoYu5AUmqpVF9gnSCQSkATEphp2vNh7g9f"
+        }
+    },
+    "chains": {
+        "localhost": {
+            "contract_owner": {
+                "name": "",
+                "address": ""
+            },
+            "chain": {
+                "name": "localhost",
+                "id": "0x539"
+            }
+        },
+        "goerli": {
+            "contract_owner": {
+                "name": "DeployMK",
+                "address": "0x9053211332Fb24802ae06401fae2eAaF38295050"
+            },
+            "chain": {
+                "name": "goerli",
+                "id": "0x5"
+            }
+        },
+        "ropsten": {
+            "contract_owner": {
+                "name": "",
+                "address": ""
+            },
+            "chain": {
+                "name": "ropsten",
+                "id": "0x3"
+            }
+        },
+        "rinkeby": {
+            "contract_owner": {
+                "name": "",
+                "address": ""
+            },
+            "chain": {
+                "name": "rinkeby",
+                "id": "0x4"
+            }
+        },
+        "matic": {
+            "contract_owner": {
+                "name": "",
+                "address": ""
+            },
+            "chain": {
+                "name": "matic",
+                "id": "0x89"
+            }
+        },
+        "mumbai": {
+            "contract_owner": {
+                "name": "",
+                "address": ""
+            },
+            "chain": {
+                "name": "mumbai",
+                "id": "0x13881"
+            }
+        }
+    },
+    "deployed": {
+        "nftmarketaddress": "0x6Be43eBEc9Ba60fF5BAdc97759ef104D5E32349d",
+        "nftaddress": "0x52421E33D6312f5Ba18AFfCb03feDcA2cd68E162",
+        "auctionAddress": "0xEDa66853981d80CFF3b5F3AA3d3cf44fE34d6164",
+        "envChain": {
+            "name": "goerli",
+            "id": "0x5"
+        },
+        "contract_owner": "0x9053211332Fb24802ae06401fae2eAaF38295050"
+    }
+}

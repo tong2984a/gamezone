@@ -7,11 +7,13 @@ import { db } from './firebase';
 function AddTask({ onClose, open }) {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
+  const [stock, setStock] = useState(0);
+  const [rule, setRule] = useState('');
   const [rules, setRules] = useState([]);
 
   /* function to get all rules from firestore in realtime */
   useEffect(() => {
-    const ruleColRef = query(collection(db, 'rules'), orderBy('created', 'desc'));
+    const ruleColRef = query(collection(db, 'rules'), orderBy('title', 'asc'));
     onSnapshot(ruleColRef, (snapshot) => {
       setRules(snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -37,7 +39,8 @@ function AddTask({ onClose, open }) {
         imageUrl: '/images/club/blankos.png',
         likes: 300,
         price,
-        stock: 200,
+        rule,
+        stock,
         title,
         created: Timestamp.now(),
       });
@@ -55,20 +58,30 @@ function AddTask({ onClose, open }) {
           name="title"
           onChange={(e) => setTitle(e.target.value.toUpperCase())}
           value={title}
-          placeholder="Enter title"
+          placeholder="Enter 遊戲名稱"
         />
         <input
           type="text"
           name="price"
           onChange={(e) => setPrice(e.target.value.toUpperCase())}
           value={price}
-          placeholder="Enter price (ETH)"
+          placeholder="Enter 入場費 (ETH)"
         />
-        <p>What is your favorite color?</p>
+        <input
+          type="text"
+          name="stock"
+          onChange={(e) => setStock(e.target.value)}
+          value={price}
+          placeholder="Enter 比賽人數"
+        />
         <br />
-        <select id="rules">
-          {rules.map((rule) => (
-            <option value={rule.title}>{rule.title} {rule.description}</option>
+        <select
+          id="rules"
+          onChange={(e) => setRule(e.target.value)}
+          value={rule}
+        >
+          {rules.map((ruleOption) => (
+            <option key={ruleOption.id} value={ruleOption.title}>{ruleOption.title} {ruleOption.description}</option>
           ))}
         </select>
         <button type="submit">Done</button>

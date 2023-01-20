@@ -145,7 +145,7 @@ const Tag = styled.span`
 
 export default function Match() {
   const [openAddTicketModal, setOpenAddTicketModal] = useState(false);
-  const { title } = useParams();
+  const { title, stock } = useParams();
   const AllTabs = [
     { Id: 1, Title: 'Players', Content: <Seatings title={title} /> },
     { Id: 2, Title: 'Scoreboard', Content: <OwnershipItem /> },
@@ -201,12 +201,12 @@ export default function Match() {
           </AuthorContainer>
           <EditionEl>371 Rounds Minted</EditionEl>
           <span>
-            <Title>STUMBLE GUYS</Title>
+            <Title>{title}</Title>
             <MarketPlace>30 Rounds</MarketPlace>
           </span>
           <AcOfferLabel>Accepting Players</AcOfferLabel>
           <Des>
-            Race through obstacle courses against up to 32 players online. Run, jump and dash to the finish line until the best player takes the crown!
+            Race through obstacle courses against up to {Number(stock) * 6} players online. Run, jump and dash to the finish line until the best player takes the crown!
           </Des>
           <TagContainer>
             <Tag>Crypto</Tag>

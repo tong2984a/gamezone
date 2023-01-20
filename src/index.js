@@ -19,7 +19,7 @@ ReactDOM.render(
       <Route path="/" element={<App />} />
       <Route path="games" element={<TopCollectibles />} />
       <Route path="asset" element={<Asset />} />
-      <Route path="match/:title" element={<Match />} />
+      <Route path="match/:title/:stock" element={<Match />} />
       <Route path="cardui" element={<CardUI />} />
     </Routes>
   </BrowserRouter>, document.getElementById('root'),
