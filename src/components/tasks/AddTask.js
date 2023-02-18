@@ -77,7 +77,7 @@ function AddTask({ onClose, open }) {
           placeholder="Enter 入場費 (ETH)"
         />
         <br />
-        <label><span>上限人數 </span></label>
+        <label htmlFor="stocks">上限人數 </label>
         <select
           id="stocks"
           onChange={(e) => setStock(e.target.value)}
@@ -88,7 +88,7 @@ function AddTask({ onClose, open }) {
           ))}
         </select>
         <br />
-        <label><span>規矩 </span></label>
+        <label htmlFor="rules"><span>規矩 </span></label>
         <select
           id="rules"
           onChange={(e) => setRule(e.target.value)}
