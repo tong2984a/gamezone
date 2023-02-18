@@ -14,10 +14,10 @@ const { gameAddress } = deployed;
 
 export default function Seatings({ title }) {
   const [task, setTask] = useState();
-  const [players, setPlayers] = useState([]);
   const [message, setMessage] = useState('');
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState(1);
+  const [seats, setSeats] = useState([]);
   const [cause, setCause] = useState('');
 
   /* function to get all tasks from firestore in realtime */
@@ -38,7 +38,7 @@ export default function Seatings({ title }) {
           author: doc1.data().author,
           likes: doc1.data().likes,
         });
-        setPlayers(doc1.data().players ?? []);
+        setSeats(doc1.data().seats ?? []);
         setPrice(doc1.data().price);
         setStock(doc1.data().stock);
       });
@@ -46,6 +46,7 @@ export default function Seatings({ title }) {
   }, []);
 
   const placeBid = async () => {
+    console.log('placeBid');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     // const market = new ethers.Contract(nftmarketaddress, Market.abi, signer);
@@ -56,6 +57,7 @@ export default function Seatings({ title }) {
       const transaction = await contract.makeBet({ value: valueInEther });
       const tx = await transaction.wait();
       const event = tx.events[0];
+      console.log('placeBid2');
       console.log({ event });
       // const value = event.args[2];
       // const tokenId = value.toNumber();
@@ -63,8 +65,10 @@ export default function Seatings({ title }) {
     } catch (error) {
       if (error.code === -32603) {
         console.error({ title: 'Error - Please check your wallet and try again.', message: 'It is very possible that the RPC endpoint you are using to connect to the network with MetaMask is congested or experiencing technical problems' });
+        throw new Error('Error - Please check your wallet and try again.', { cause: 'It is very possible that the RPC endpoint you are using to connect to the network with MetaMask is congested or experiencing technical problems' });
       } else {
         console.error({ title: 'Error - Please check your wallet and try again.', message: error.message });
+        throw new Error('Error - Please check your wallet and try again.', { cause: error.message });
       }
     }
   };
@@ -102,13 +106,14 @@ export default function Seatings({ title }) {
   const handleChange = async (player) => {
     try {
       const account = await ethAccountsRequest();
+      if (seats.some((e) => e.account.toUpperCase() === account.toUpperCase())) {
+        throw new Error('Your wallet has already registered.', { cause: '' });
+      }
       await placeBid();
       const taskDocRef = doc(db, 'gamings', task.id);
       await updateDoc(taskDocRef, {
-        players: arrayUnion(player),
         seats: arrayUnion({ account, player }),
       });
-      setPlayers([...players, player]);
     } catch (err) {
       console.error(err);
       setMessage(err.message);
@@ -121,8 +126,8 @@ export default function Seatings({ title }) {
     <div className="theatre">
       <div className="screen-side">
         <h3 className="select-text">入場費 {price} ETH</h3>
-        <h1>{message}</h1>
-        <h1>{cause}</h1>
+        <h1 className="error-text">{message}</h1>
+        <h1 className="error-text">{cause}</h1>
       </div>
       <ol className="cabin">
         {
@@ -133,7 +138,7 @@ export default function Seatings({ title }) {
                   (row * 6) + index < stock
                   && (
                     <li key={index} className="seat">
-                      <input type="checkbox" disabled={players.includes(`${row + 1}${_element}`)} id={`${row + 1}${_element}`} onClick={() => handleChange(`${row + 1}${_element}`)} />
+                      <input type="checkbox" disabled={seats.some((e) => e.player === `${row + 1}${_element}`)} id={`${row + 1}${_element}`} onClick={() => handleChange(`${row + 1}${_element}`)} />
                       <label htmlFor={`${row + 1}${_element}`}>{`${(row * 6) + index + 1}`}</label>
                     </li>
                   )

@@ -98,7 +98,7 @@ export default function Match() {
         <LeftSection>
           <ImageEl>
             <img
-              src="/images/club/stumbleguys.png"
+              src="/images/club/splatoon3.jpg"
               width="100%"
               height="100%"
             />

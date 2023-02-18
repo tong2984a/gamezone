@@ -5,11 +5,17 @@ import './addTask.css';
 import { db } from './firebase';
 
 function AddTask({ onClose, open }) {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('Splatoon3');
   const [price, setPrice] = useState('');
-  const [stock, setStock] = useState(0);
   const [rule, setRule] = useState('');
+  const [stock, setStock] = useState(8);
   const [rules, setRules] = useState([]);
+  const titles = [{
+    id: 1,
+    title: 'Splatoon3',
+    description: '',
+  }];
+  const stocks = [2, 3, 4, 5, 6, 7, 8];
 
   /* function to get all rules from firestore in realtime */
   useEffect(() => {
@@ -36,11 +42,11 @@ function AddTask({ onClose, open }) {
         avatar: '/images/avatar/ugonzo.jpg',
         badge: 'Total Payout: 20 ETH',
         edition: 1,
-        imageUrl: '/images/club/blankos.png',
+        imageUrl: '/images/club/splatoon3.jpg',
         likes: 300,
         price,
-        rule,
         stock,
+        rule,
         title,
         created: Timestamp.now(),
       });
@@ -53,13 +59,16 @@ function AddTask({ onClose, open }) {
   return (
     <Modal modalLable="Add Task" onClose={onClose} open={open}>
       <form onSubmit={handleSubmit} className="addTask" name="addTask">
-        <input
-          type="text"
-          name="title"
+        <select
+          id="titles"
           onChange={(e) => setTitle(e.target.value.toUpperCase())}
           value={title}
-          placeholder="Enter 遊戲名稱"
-        />
+        >
+          {titles.map((titleOption) => (
+            <option key={titleOption.id} value={titleOption.title}>{titleOption.title} {titleOption.description}</option>
+          ))}
+        </select>
+        <br />
         <input
           type="text"
           name="price"
@@ -67,23 +76,30 @@ function AddTask({ onClose, open }) {
           value={price}
           placeholder="Enter 入場費 (ETH)"
         />
-        <input
-          type="text"
-          name="stock"
-          onChange={(e) => setStock(e.target.value)}
-          value={price}
-          placeholder="Enter 比賽人數"
-        />
         <br />
-        <select
-          id="rules"
-          onChange={(e) => setRule(e.target.value)}
-          value={rule}
-        >
-          {rules.map((ruleOption) => (
-            <option key={ruleOption.id} value={ruleOption.title}>{ruleOption.title} {ruleOption.description}</option>
-          ))}
-        </select>
+        <label><span>上限人數 </span>
+          <select
+            id="stocks"
+            onChange={(e) => setStock(e.target.value)}
+            value={stock}
+          >
+            {stocks.map((stockOption) => (
+              <option key={stockOption} value={stockOption}>{stockOption}</option>
+            ))}
+          </select>
+        </label>
+        <br />
+        <label><span>規矩 </span>
+          <select
+            id="rules"
+            onChange={(e) => setRule(e.target.value)}
+            value={rule}
+          >
+            {rules.map((ruleOption) => (
+              <option key={ruleOption.id} value={ruleOption.title}>{ruleOption.title} {ruleOption.description}</option>
+            ))}
+          </select>
+        </label>
         <button type="submit">Done</button>
       </form>
     </Modal>

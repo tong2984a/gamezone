@@ -29,6 +29,9 @@
   .screen-side .select-text {
     color: #969696;
   }
+  .error-text {
+    color: #ed3838;
+  }
   .exit {
     position: relative;
     height: 50px;

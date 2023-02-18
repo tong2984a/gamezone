@@ -17,6 +17,10 @@
   padding-left: 5px;
 }
 
+.addTask label{
+  color: black;
+}
+
 .addTask input:focus{
   outline: none;
 }

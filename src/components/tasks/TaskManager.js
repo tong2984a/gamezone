@@ -68,7 +68,7 @@ function TaskManager() {
       </div>
       <br />
       <Sort onClick={() => setOpenAddModal(true)}>
-        Add 遊戲 +
+        Add 比賽 +
       </Sort>
       <br />
       <Date onClick={() => setOpenAddRuleModal(true)}>

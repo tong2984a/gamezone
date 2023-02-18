@@ -130,7 +130,7 @@ export default function NFTCard({ item }) {
             <EditionEl>
               {edition} {edition > 1 ? 'Rounds' : 'Round'} Minted
             </EditionEl>
-            <StockEl>{stock} for sale</StockEl>
+            <StockEl>{stock} seats</StockEl>
           </TSection>
           <ItemTitle>{title === '' ? 'New Game' : title}</ItemTitle>
           <PriceSection>{price === '' ? '0' : price} ETH</PriceSection>

@@ -12,7 +12,7 @@ function Ticket({ onClose, open }) {
         <div className="top --flex-column">
           <div className="bandname -bold">新直播主</div>
           <div className="tourname">Home Tour</div>
-          <img src="/images/club/blankos_ticket.png" alt="" />
+          <img src="/images/club/splat_ticket.jpg" alt="" />
           <div className="deetz --flex-row-j!sb">
             <div className="event --flex-column">
               <div className="date">3rd March 2017</div>
