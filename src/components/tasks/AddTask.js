@@ -77,27 +77,29 @@ function AddTask({ onClose, open }) {
           placeholder="Enter 入場費 (ETH)"
         />
         <br />
-        <label htmlFor="stocks">上限人數 </label>
-        <select
-          id="stocks"
-          onChange={(e) => setStock(e.target.value)}
-          value={stock}
-        >
-          {stocks.map((stockOption) => (
-            <option key={stockOption} value={stockOption}>{stockOption}</option>
-          ))}
-        </select>
+        <label htmlFor="stocks"><span>上限人數 </span>
+          <select
+            id="stocks"
+            onChange={(e) => setStock(e.target.value)}
+            value={stock}
+          >
+            {stocks.map((stockOption) => (
+              <option key={stockOption} value={stockOption}>{stockOption}</option>
+            ))}
+          </select>
+        </label>
         <br />
-        <label htmlFor="rules"><span>規矩 </span></label>
-        <select
-          id="rules"
-          onChange={(e) => setRule(e.target.value)}
-          value={rule}
-        >
-          {rules.map((ruleOption) => (
-            <option key={ruleOption.id} value={ruleOption.title}>{ruleOption.title} {ruleOption.description}</option>
-          ))}
-        </select>
+        <label htmlFor="rules"><span>規矩 </span>
+          <select
+            id="rules"
+            onChange={(e) => setRule(e.target.value)}
+            value={rule}
+          >
+            {rules.map((ruleOption) => (
+              <option key={ruleOption.id} value={ruleOption.title}>{ruleOption.title} {ruleOption.description}</option>
+            ))}
+          </select>
+        </label>
         <button type="submit">Done</button>
       </form>
     </Modal>
