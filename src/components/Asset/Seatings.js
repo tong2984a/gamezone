@@ -18,60 +18,13 @@ export default function Seatings({ title }) {
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState(1);
   const [seats, setSeats] = useState([]);
+  const [screenNames, setScreenNames] = useState([]);
   const [cause, setCause] = useState('');
-
-  /* function to get all tasks from firestore in realtime */
-  useEffect(() => {
-    const taskColRef = query(collection(db, 'gamings'), where('title', '==', title));
-    onSnapshot(taskColRef, (snapshot) => {
-      snapshot.forEach((doc1) => {
-        setTask({
-          id: doc1.id,
-          data: doc1.data(),
-          title: doc1.data().title,
-          imageUrl: doc1.data().imageUrl,
-          edition: doc1.data().edition,
-          stock: doc1.data().stock,
-          badge: doc1.data().badge,
-          price: doc1.data().price,
-          avatar: doc1.data().avatar,
-          author: doc1.data().author,
-          likes: doc1.data().likes,
-        });
-        setSeats(doc1.data().seats ?? []);
-        setPrice(doc1.data().price);
-        setStock(doc1.data().stock);
-      });
-    });
-  }, []);
-
-  const placeBid = async () => {
-    console.log('placeBid');
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    // const market = new ethers.Contract(nftmarketaddress, Market.abi, signer);
-    // const price = ethers.utils.parseUnits('0.01', 'ether');
-    try {
-      const valueInEther = ethers.utils.parseUnits('1', 'ether');
-      const contract = new ethers.Contract(gameAddress, Game.abi, signer);
-      const transaction = await contract.makeBet({ value: valueInEther });
-      const tx = await transaction.wait();
-      const event = tx.events[0];
-      console.log('placeBid2');
-      console.log({ event });
-      // const value = event.args[2];
-      // const tokenId = value.toNumber();
-      // console.log({ tokenId });
-    } catch (error) {
-      if (error.code === -32603) {
-        console.error({ title: 'Error - Please check your wallet and try again.', message: 'It is very possible that the RPC endpoint you are using to connect to the network with MetaMask is congested or experiencing technical problems' });
-        throw new Error('Error - Please check your wallet and try again.', { cause: 'It is very possible that the RPC endpoint you are using to connect to the network with MetaMask is congested or experiencing technical problems' });
-      } else {
-        console.error({ title: 'Error - Please check your wallet and try again.', message: error.message });
-        throw new Error('Error - Please check your wallet and try again.', { cause: error.message });
-      }
-    }
-  };
+  const [processStatus, setProcessStatus] = useState('');
+  const [hasBets, setHasBets] = useState(false);
+  const [accountAddress, setAccountAddress] = useState('');
+  const [accountName, setAccountName] = useState('');
+  const [nameInput, setNameInput] = useState('');
 
   async function ethAccountsRequest() {
     if (window.ethereum) {
@@ -102,9 +55,89 @@ export default function Seatings({ title }) {
     throw new Error('Non-Ethereum browser detected.', { cause: 'You should consider installing MetaMask' });
   }
 
+  const checkBets = async (doc1Seats) => {
+    const account = await ethAccountsRequest();
+    setAccountAddress(account);
+    if (doc1Seats.some((e) => e.account.toUpperCase() === account.toUpperCase())) {
+      setHasBets(true);
+    }
+    screenNames.forEach((e) => {
+      if (e.accountAddress.toUpperCase() === account.toUpperCase()) {
+        setAccountName(e.accountName);
+      }
+    });
+  };
+
+  /* function to get all tasks from firestore in realtime */
+  useEffect(() => {
+    const taskColRef = query(collection(db, 'gamings'), where('title', '==', title));
+    onSnapshot(taskColRef, (snapshot) => {
+      snapshot.forEach((doc1) => {
+        setTask({
+          id: doc1.id,
+          data: doc1.data(),
+          title: doc1.data().title,
+          imageUrl: doc1.data().imageUrl,
+          edition: doc1.data().edition,
+          stock: doc1.data().stock,
+          badge: doc1.data().badge,
+          price: doc1.data().price,
+          avatar: doc1.data().avatar,
+          author: doc1.data().author,
+          likes: doc1.data().likes,
+        });
+        setSeats(doc1.data().seats ?? []);
+        setScreenNames(doc1.data().screenNames ?? []);
+        setPrice(doc1.data().price);
+        setStock(doc1.data().stock);
+        checkBets(doc1.data().seats ?? []);
+      });
+    });
+  }, []);
+
+  const placeBid = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    // const market = new ethers.Contract(nftmarketaddress, Market.abi, signer);
+    // const price = ethers.utils.parseUnits('0.01', 'ether');
+    try {
+      const valueInEther = ethers.utils.parseUnits('1', 'ether');
+      const contract = new ethers.Contract(gameAddress, Game.abi, signer);
+      const transaction = await contract.makeBet({ value: valueInEther });
+      const tx = await transaction.wait();
+      const event = tx.events[0];
+      console.log({ event });
+      // const value = event.args[2];
+      // const tokenId = value.toNumber();
+      // console.log({ tokenId });
+    } catch (error) {
+      if (error.code === -32603) {
+        console.error({ title: 'Error - Please check your wallet and try again.', message: 'It is very possible that the RPC endpoint you are using to connect to the network with MetaMask is congested or experiencing technical problems' });
+        throw new Error('Error - Please check your wallet and try again.', { cause: 'It is very possible that the RPC endpoint you are using to connect to the network with MetaMask is congested or experiencing technical problems' });
+      } else {
+        console.error({ title: 'Error - Please check your wallet and try again.', message: error.message });
+        throw new Error('Error - Please check your wallet and try again.', { cause: error.message });
+      }
+    }
+  };
+
+  /* function to update firestore */
+  const handleNameChange = async () => {
+    setAccountName(nameInput);
+    const taskDocRef = doc(db, 'gamings', task.id);
+    try {
+      await updateDoc(taskDocRef, {
+        screenNames: arrayUnion({ accountName: nameInput, accountAddress }),
+      });
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   /* function to update firestore */
   const handleChange = async (player) => {
     try {
+      setProcessStatus('Processing your bet, please wait ...');
       const account = await ethAccountsRequest();
       if (seats.some((e) => e.account.toUpperCase() === account.toUpperCase())) {
         throw new Error('Your wallet has already registered.', { cause: '' });
@@ -114,8 +147,10 @@ export default function Seatings({ title }) {
       await updateDoc(taskDocRef, {
         seats: arrayUnion({ account, player }),
       });
+      setProcessStatus('You successfully placed a bet');
     } catch (err) {
       console.error(err);
+      setProcessStatus('');
       setMessage(err.message);
       setCause(err.cause);
     }
@@ -126,12 +161,32 @@ export default function Seatings({ title }) {
     <div className="theatre">
       <div className="screen-side">
         <h3 className="select-text">入場費 {price} ETH</h3>
+        { accountAddress && <h3 className="account-text">{accountAddress}</h3>}
+        { accountName && <h3 className="account-text">{accountName}</h3>}
         <h1 className="error-text">{message}</h1>
         <h1 className="error-text">{cause}</h1>
       </div>
       <ol className="cabin">
-        {
-          Array.from({ length: stock }, (_rowElement, row) => (
+        { hasBets && !accountName
+        && (
+          <div className="screen-side">
+            <input
+              id="bettor"
+              type="text"
+              onChange={(e) => setNameInput(e.target.value)}
+              placeholder="Enter screen name"
+            />
+            <button type="button" onClick={() => handleNameChange()}>ENTER</button>
+          </div>
+        )}
+        { processStatus
+          ? (
+            <div className="screen-side">
+              <br />
+              <h1>{processStatus}</h1>
+            </div>
+          )
+          : Array.from({ length: stock }, (_rowElement, row) => (
             <li key={row} className={`row row--${row + 1}`}>
               <ol className="seats" type="A">
                 {Array.from(['A', 'B', 'C', 'D', 'E', 'F'], (_element, index) => (
@@ -145,8 +200,7 @@ export default function Seatings({ title }) {
                 ))}
               </ol>
             </li>
-          ))
-        }
+          ))}
       </ol>
     </div>
   );

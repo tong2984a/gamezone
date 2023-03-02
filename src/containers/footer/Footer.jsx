@@ -1,9 +1,11 @@
 import React from 'react';
 import './footer.css';
+import possibilityImage from '../../assets/GreedIslandlogo.png';
 
 const Footer = () => (
   <div className="gpt3__footer section__padding">
     <div className="gpt3__footer-heading">
+      <img src={possibilityImage} alt="possibility" />
       <h1 className="gradient__text">PLAY BY YOUR OWN RULES</h1>
     </div>
 

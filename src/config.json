@@ -76,7 +76,7 @@
         }
     },
     "deployed": {
-        "gameAddress": "0xf81D061F2C679197B5D31E0D14A082BcA4Fb9561",
+        "gameAddress": "0x168F46314b65caaa62FD42ded30359C6a303AAE9",
         "envChain": {
             "name": "mumbai",
             "id": "0x13881"
