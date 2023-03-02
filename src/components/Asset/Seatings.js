@@ -18,7 +18,6 @@ export default function Seatings({ title }) {
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState(1);
   const [seats, setSeats] = useState([]);
-  const [screenNames, setScreenNames] = useState([]);
   const [cause, setCause] = useState('');
   const [processStatus, setProcessStatus] = useState('');
   const [hasBets, setHasBets] = useState(false);
@@ -55,13 +54,13 @@ export default function Seatings({ title }) {
     throw new Error('Non-Ethereum browser detected.', { cause: 'You should consider installing MetaMask' });
   }
 
-  const checkBets = async (doc1Seats) => {
+  const checkBets = async (doc1Seats, doc1ScreenNames) => {
     const account = await ethAccountsRequest();
     setAccountAddress(account);
     if (doc1Seats.some((e) => e.account.toUpperCase() === account.toUpperCase())) {
       setHasBets(true);
     }
-    screenNames.forEach((e) => {
+    doc1ScreenNames.forEach((e) => {
       if (e.accountAddress.toUpperCase() === account.toUpperCase()) {
         setAccountName(e.accountName);
       }
@@ -87,10 +86,9 @@ export default function Seatings({ title }) {
           likes: doc1.data().likes,
         });
         setSeats(doc1.data().seats ?? []);
-        setScreenNames(doc1.data().screenNames ?? []);
         setPrice(doc1.data().price);
         setStock(doc1.data().stock);
-        checkBets(doc1.data().seats ?? []);
+        checkBets(doc1.data().seats ?? [], doc1.data().screenNames ?? []);
       });
     });
   }, []);
