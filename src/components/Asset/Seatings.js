@@ -125,13 +125,9 @@ export default function Seatings({ title }) {
   const handleNameChange = async () => {
     setAccountName(nameInput);
     const taskDocRef = doc(db, 'gamings', task.id);
-    try {
-      await updateDoc(taskDocRef, {
-        screenNames: arrayUnion({ accountName: nameInput, accountAddress }),
-      });
-    } catch (err) {
-      alert(err);
-    }
+    await updateDoc(taskDocRef, {
+      screenNames: arrayUnion({ accountName: nameInput, accountAddress }),
+    });
   };
 
   /* function to update firestore */
