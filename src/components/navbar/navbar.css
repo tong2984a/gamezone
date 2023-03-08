@@ -4,6 +4,7 @@
     align-items: center;
 
     padding: 2rem 6rem;
+    background: var(--color-footer);
 }
 
 .gpt3__navbar-links {
@@ -18,8 +19,8 @@
 }
 
 .gpt3__navbar-links_logo img {
-    width: 62.56px;
-    height: 16.02px;
+    width: 140px;
+    height: 140px;
 }
 
 .gpt3__navbar-links_container {

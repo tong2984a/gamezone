@@ -4,12 +4,15 @@ import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import './navbar.css';
 import config from '../../config.json';
 import NFT from '../../artifacts/contracts/NFT.sol/NFT.json';
+import possibilityImage from '../../assets/GreedIslandlogo.png';
 
 const tokenWatchAssetUrl = config.token.wallet_watchAsset.url;
 const tokenSymbol = config.token.symbol;
 const envChainName = config.deployed.envChain.name;
 const envChainId = config.deployed.envChain.id;
 const { nftaddress } = config.deployed;
+const claimUrl = 'http://3046.chickenkiller.com:8000/claim';
+const payUrl = 'http://3046.chickenkiller.com:8000/games';
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -110,9 +113,12 @@ const Navbar = () => {
   return (
     <div className="gpt3__navbar">
       <div className="gpt3__navbar-links">
+        <div className="gpt3__navbar-links_logo">
+          <img src={possibilityImage} alt="possibility" />
+        </div>
         <div className="gpt3__navbar-links_container">
-          <p><a href="#home">Home</a></p>
-          <NavLink to="/games" className="navlink">Games</NavLink>
+          <p><a href={claimUrl}>Claim Rewards</a></p>
+          <a href={payUrl} className="navlink">Pay Winners</a>
         </div>
       </div>
       <div className="gpt3__navbar-sign">

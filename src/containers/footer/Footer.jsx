@@ -1,18 +1,8 @@
 import React from 'react';
 import './footer.css';
-import possibilityImage from '../../assets/GreedIslandlogo.png';
 
 const Footer = () => (
   <div className="gpt3__footer section__padding">
-    <div className="gpt3__footer-heading">
-      <img src={possibilityImage} alt="possibility" />
-      <h1 className="gradient__text">PLAY BY YOUR OWN RULES</h1>
-    </div>
-
-    <div className="gpt3__footer-btn">
-      <p>Join Game</p>
-    </div>
-
     <div className="gpt3__footer-links">
       <div className="gpt3__footer-links_div">
         <h4>Links</h4>
@@ -36,7 +26,7 @@ const Footer = () => (
     </div>
 
     <div className="gpt3__footer-copyright">
-      <p>@2021 All rights reserved.</p>
+      <p>@2023 All rights reserved.</p>
     </div>
   </div>
 );

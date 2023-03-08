@@ -7,7 +7,7 @@ import './App.css';
 
 const App = () => (
   <div className="App">
-    <div className="gradient__bg">
+    <div className="greed__bg">
       <Navbar />
       <Header />
     </div>
