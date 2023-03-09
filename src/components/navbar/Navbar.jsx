@@ -111,7 +111,7 @@ const Navbar = () => {
   }
 
   if (info.message) {
-    alert(info.message);
+    console.log(info.message);
   }
 
   return (
