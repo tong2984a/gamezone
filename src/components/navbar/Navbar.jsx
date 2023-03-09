@@ -110,6 +110,10 @@ const Navbar = () => {
     }
   }
 
+  if (info.message) {
+    alert(info.message);
+  }
+
   return (
     <div className="gpt3__navbar">
       <div className="gpt3__navbar-links">
@@ -118,7 +122,7 @@ const Navbar = () => {
         </div>
         <div className="gpt3__navbar-links_container">
           <p><a href={claimUrl}>Claim Rewards</a></p>
-          <a href={payUrl} className="navlink">Pay Winners</a>
+          <a href={payUrl} className="navlink">Pay Followers</a>
         </div>
       </div>
       <div className="gpt3__navbar-sign">

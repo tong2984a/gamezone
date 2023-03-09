@@ -55,16 +55,23 @@ export default function Seatings({ title }) {
   }
 
   const checkBets = async (doc1Seats, doc1ScreenNames) => {
-    const account = await ethAccountsRequest();
-    setAccountAddress(account);
-    if (doc1Seats.some((e) => e.account.toUpperCase() === account.toUpperCase())) {
-      setHasBets(true);
-    }
-    doc1ScreenNames.forEach((e) => {
-      if (e.accountAddress.toUpperCase() === account.toUpperCase()) {
-        setAccountName(e.accountName);
+    try {
+      const account = await ethAccountsRequest();
+      setAccountAddress(account);
+      if (doc1Seats.some((e) => e.account.toUpperCase() === account.toUpperCase())) {
+        setHasBets(true);
       }
-    });
+      doc1ScreenNames.forEach((e) => {
+        if (e.accountAddress.toUpperCase() === account.toUpperCase()) {
+          setAccountName(e.accountName);
+        }
+      });
+    } catch (err) {
+      console.error(err);
+      setProcessStatus('');
+      setMessage(err.message);
+      setCause(err.cause);
+    }
   };
 
   /* function to get all tasks from firestore in realtime */
@@ -99,7 +106,7 @@ export default function Seatings({ title }) {
     // const market = new ethers.Contract(nftmarketaddress, Market.abi, signer);
     // const price = ethers.utils.parseUnits('0.01', 'ether');
     try {
-      const valueInEther = ethers.utils.parseUnits('1', 'ether');
+      const valueInEther = ethers.utils.parseUnits('0.1', 'ether');
       const contract = new ethers.Contract(gameAddress, Game.abi, signer);
       const transaction = await contract.makeBet({ value: valueInEther });
       const tx = await transaction.wait();
