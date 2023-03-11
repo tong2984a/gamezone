@@ -163,7 +163,13 @@ export default function Seatings({ title }) {
       <div className="screen-side">
         <h3 className="select-text">入場費 {price} ETH</h3>
         { accountAddress && <h3 className="account-text">{accountAddress}</h3>}
-        { accountName && <h3 className="account-text">{accountName}</h3>}
+        { accountName
+        && (
+          <>
+            <h3 className="account-text">Hi {accountName}, your PIN is 357.</h3>
+            <h3 className="account-text">Click <a id="link" href="http://3046.chickenkiller.com:8000/claim">HERE</a> to play your games.</h3>
+          </>
+        )}
         <h1 className="error-text">{message}</h1>
         <h1 className="error-text">{cause}</h1>
       </div>
@@ -171,6 +177,7 @@ export default function Seatings({ title }) {
         { hasBets && !accountName
         && (
           <div className="screen-side">
+            <p>Screen name must match your in-game avatar</p>
             <input
               id="bettor"
               type="text"
