@@ -72,10 +72,14 @@
             "chain": {
                 "name": "mumbai",
                 "id": "0x13881"
+            },
+            "usdc": {
+                "contractAddress": "0x0FA8781a83E46826621b3BC094Ea2A0212e71B23"
             }
         }
     },
     "deployed": {
+        "tokenFarmAddress": "0x5DC94e49bbdc9504C5658aea561347AC9eF28f62",
         "gameAddress": "0x9E903D5Cc25ff6b8A82855C0dfB3c3926B414745",
         "envChain": {
             "name": "mumbai",
