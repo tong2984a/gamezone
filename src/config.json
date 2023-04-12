@@ -22,6 +22,9 @@
             "chain": {
                 "name": "localhost",
                 "id": "0x539"
+            },
+            "usdc": {
+                "contractAddress": "0x0FA8781a83E46826621b3BC094Ea2A0212e71B23"
             }
         },
         "goerli": {
@@ -66,7 +69,7 @@
         },
         "mumbai": {
             "contract_owner": {
-                "name": "SelfServiceNFT",
+                "name": "SelfServeNFT",
                 "address": "0x3B67b2e6806233C79b109577B361E9d35c0cd397"
             },
             "chain": {
@@ -79,12 +82,16 @@
         }
     },
     "deployed": {
-        "tokenFarmAddress": "0x5DC94e49bbdc9504C5658aea561347AC9eF28f62",
-        "gameAddress": "0x9E903D5Cc25ff6b8A82855C0dfB3c3926B414745",
+        "dappTokenAddress": "0x4bbA934daE70E655F45bD6C7B5988Db3B0312fD4",
+        "daiTokenAddress": "0x42A5195f431d34c9373B2504639a88CEfD00768f",
+        "gameAddress": "0x8969c2ba517e5ab42D2d016FF0A82bf5Dd420f11",
         "envChain": {
             "name": "mumbai",
             "id": "0x13881"
         },
-        "contract_owner": "0x3B67b2e6806233C79b109577B361E9d35c0cd397"
+        "contract_owner": {
+            "name": "SelfServeNFT",
+            "address": "0x3B67b2e6806233C79b109577B361E9d35c0cd397"
+        }
     }
 }

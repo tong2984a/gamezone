@@ -4,15 +4,17 @@ import { doc, arrayUnion, updateDoc, collection, query, onSnapshot, where } from
 import { db } from '../tasks/firebase';
 import './Seatings.css';
 
-import { deployed, chains } from '../../config';
-import USDC from '../../artifacts/contracts/TokenFarm.sol/USDC.json';
+// import { deployed, chains } from '../../config';
+import { deployed } from '../../config';
+// import USDC from '../../artifacts/contracts/TokenFarm.sol/USDC.json';
 import Game from '../../artifacts/contracts/Game.sol/Game.json';
 
 const envChainName = deployed.envChain.name;
 const envChainId = deployed.envChain.id;
-const { gameAddress, tokenFarmAddress } = deployed;
+// const { gameAddress, tokenFarmAddress } = deployed;
+const { gameAddress } = deployed;
 console.log('commented out for now', Game, gameAddress);
-const usdcContractAddress = chains.mumbai.usdc.contractAddress;
+// const usdcContractAddress = chains.mumbai.usdc.contractAddress;
 
 export default function Seatings({ title }) {
   const [task, setTask] = useState();
@@ -85,6 +87,7 @@ export default function Seatings({ title }) {
           id: doc1.id,
           data: doc1.data(),
           title: doc1.data().title,
+          gameId: doc1.data().gameId,
           imageUrl: doc1.data().imageUrl,
           edition: doc1.data().edition,
           stock: doc1.data().stock,
@@ -106,15 +109,22 @@ export default function Seatings({ title }) {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     try {
-      // const valueInEther = ethers.utils.parseUnits('0.1', 'ether');
+      const valueInEther = ethers.utils.parseUnits('0.1', 'ether');
       // const contract = new ethers.Contract(gameAddress, Game.abi, signer);
       // const transaction = await contract.makeBet({ value: valueInEther });
 
-      const amount = ethers.utils.parseUnits('1', 6);
-      const erc20Contract = new ethers.Contract(usdcContractAddress, USDC.abi, signer);
-      const transaction = await erc20Contract.connect(signer).transfer(tokenFarmAddress, amount);
-      const tx = await transaction.wait();
-      console.log(tx.events);
+      const gameContract = new ethers.Contract(gameAddress, Game.abi, signer);
+      const tx = await gameContract.connect(signer).joinGame(task.gameId, { value: valueInEther });
+      const rc = await tx.wait();
+      const event = rc.events.find((e) => e.event === 'JoinGame');
+      if (event) {
+        console.log('count players', parseInt(event.data.toString(), 16));
+      }
+      // const amount = ethers.utils.parseUnits('1', 6);
+      // const erc20Contract = new ethers.Contract(usdcContractAddress, USDC.abi, signer);
+      // const transaction = await erc20Contract.connect(signer).transfer(tokenFarmAddress, amount);
+      // const tx = await transaction.wait();
+      // console.log(tx.events);
     } catch (error) {
       if (error.code === -32603) {
         console.error({ title: 'Error - Please check your wallet and try again.', message: 'It is very possible that the RPC endpoint you are using to connect to the network with MetaMask is congested or experiencing technical problems' });

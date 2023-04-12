@@ -75,15 +75,9 @@ function TaskManager() {
         Add 規矩 +
       </Date>
 
-      {openAddModal
-      && (
-        <AddTask onClose={() => setOpenAddModal(false)} open={openAddModal} />
-      )}
+      <AddTask onClose={() => setOpenAddModal(false)} open={openAddModal} />
 
-      {openAddRuleModal
-      && (
-        <AddRule onClose={() => setOpenAddRuleModal(false)} open={openAddRuleModal} />
-      )}
+      <AddRule onClose={() => setOpenAddRuleModal(false)} open={openAddRuleModal} />
     </div>
   );
 }
