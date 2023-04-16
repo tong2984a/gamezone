@@ -179,7 +179,7 @@ export default function Seatings({ title }) {
         && (
           <>
             <h3 className="account-text">Hi {accountName}, your PIN is 357.</h3>
-            <h3 className="account-text">Click <a id="link" href="http://3046.chickenkiller.com:8000/claim">HERE</a> to play your games.</h3>
+            <h3 className="account-text">Click <a id="link" href="http://3046.chickenkiller.com:8000">HERE</a> to claim your rewards.</h3>
           </>
         )}
         <h1 className="error-text">{message}</h1>
